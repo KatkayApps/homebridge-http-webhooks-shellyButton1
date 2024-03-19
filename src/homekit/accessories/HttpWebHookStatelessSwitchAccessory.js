@@ -17,9 +17,10 @@ function HttpWebHookStatelessSwitchAccessory(ServiceParam, CharacteristicParam, 
   for (var index = 0; index < this.buttons.length; index++) {
     var single_press = this.buttons[index]["single_press"] === undefined ? true : this.buttons[index]["single_press"];
     var double_press = this.buttons[index]["double_press"] === undefined ? true : this.buttons[index]["double_press"];
+    var triple_press = this.buttons[index]["triple_press"] === undefined ? true : this.buttons[index]["triple_press"];
     var long_press = this.buttons[index]["long_press"] === undefined ? true : this.buttons[index]["long_press"];
     var button = new Service.StatelessProgrammableSwitch(this.buttons[index].name, '' + index);
-    button.getCharacteristic(Characteristic.ProgrammableSwitchEvent).setProps(GetStatelessSwitchProps(single_press, double_press, long_press));
+    button.getCharacteristic(Characteristic.ProgrammableSwitchEvent).setProps(GetStatelessSwitchProps(single_press, double_press, triple_press, long_press));
     button.getCharacteristic(Characteristic.ServiceLabelIndex).setValue(index + 1);
     this.service.push(button);
   }
@@ -46,46 +47,70 @@ HttpWebHookStatelessSwitchAccessory.prototype.changeFromServer = function(urlPar
   };
 }
 
-function GetStatelessSwitchProps(single_press, double_press, long_press) {
+function GetStatelessSwitchProps(single_press, double_press, triple_press, long_press) {
   var props;
-  if (single_press && !double_press && !long_press) {
+  if (single_press && !double_press && !triple_press && !long_press) {
     props = {
       minValue : Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
       maxValue : Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS
     };
   }
-  if (single_press && double_press && !long_press) {
+  if (single_press && double_press && !triple_press && !long_press) {
     props = {
       minValue : Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
       maxValue : Characteristic.ProgrammableSwitchEvent.DOUBLE_PRESS
     };
   }
-  if (single_press && !double_press && long_press) {
+ if (single_press && double_press && triple_press && !long_press) {
+    props = {
+      minValue : Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
+      maxValue : Characteristic.ProgrammableSwitchEvent.TRIPLE_PRESS
+    };
+  }
+  if (single_press && !double_press && !triple_press && long_press) {
     props = {
       minValue : Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
       maxValue : Characteristic.ProgrammableSwitchEvent.LONG_PRESS,
       validValues : [ Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS, Characteristic.ProgrammableSwitchEvent.LONG_PRESS ]
     };
   }
-  if (!single_press && double_press && !long_press) {
+  if (!single_press && double_press && !triple_press && !long_press) {
     props = {
       minValue : Characteristic.ProgrammableSwitchEvent.DOUBLE_PRESS,
       maxValue : Characteristic.ProgrammableSwitchEvent.DOUBLE_PRESS
     };
   }
-  if (!single_press && double_press && long_press) {
+  if (!single_press && double_press && triple_press && !long_press) {
+    props = {
+      minValue : Characteristic.ProgrammableSwitchEvent.DOUBLE_PRESS,
+      maxValue : Characteristic.ProgrammableSwitchEvent.TRIPLE_PRESS
+    };
+  }
+  if (!single_press && double_press && !triple_press && long_press) {
     props = {
       minValue : Characteristic.ProgrammableSwitchEvent.DOUBLE_PRESS,
       maxValue : Characteristic.ProgrammableSwitchEvent.LONG_PRESS
     };
   }
-  if (!single_press && !double_press && long_press) {
+  if (!single_press && !double_press && triple_press && !long_press) {
+    props = {
+      minValue : Characteristic.ProgrammableSwitchEvent.TRIPLE_PRESS,
+      maxValue : Characteristic.ProgrammableSwitchEvent.TRIPLE_PRESS
+    };
+  }
+  if (!single_press && !double_press && triple_press && long_press) {
+    props = {
+      minValue : Characteristic.ProgrammableSwitchEvent.TRIPLE_PRESS,
+      maxValue : Characteristic.ProgrammableSwitchEvent.LONG_PRESS
+    };
+  }
+  if (!single_press && !double_press && !triple_press && long_press) {
     props = {
       minValue : Characteristic.ProgrammableSwitchEvent.LONG_PRESS,
       maxValue : Characteristic.ProgrammableSwitchEvent.LONG_PRESS
     };
   }
-  if (single_press && double_press && long_press) {
+  if (single_press && double_press && triple_press && long_press) {
     props = {
       minValue : Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
       maxValue : Characteristic.ProgrammableSwitchEvent.LONG_PRESS
