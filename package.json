@@ -1,8 +1,8 @@
 {
-  "name": "homebridge-http-webhooks",
-  "version": "0.1.18",
-  "displayName": "Homebridge Webhooks",
-  "description": "A http plugin with support of webhooks for Homebridge: https://github.com/nfarina/homebridge",
+  "name": "homebridge-http-webhooks-shellyButton1",
+  "version": "1.0.0",
+  "displayName": "Homebridge Webhooks for Shelly Button 1",
+  "description": "A http plugin with support of webhooks for Homebridge: https://github.com/katkayapps/homebridge-http-webhooks-shellyButton1",
   "license": "GPL-3.0",
   "keywords": [
     "homebridge-plugin",
