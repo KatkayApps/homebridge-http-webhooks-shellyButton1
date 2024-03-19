@@ -691,7 +691,7 @@
       "statelessswitches": {
         "type": "array",
         "title": "Stateless Switches",
-        "description": "Stateless switches requires 3 parameters accessoryId, buttonName and the event to trigger: Single press = 0, Double press = 1, Long press = 2.",
+        "description": "Stateless switches requires 3 parameters 'accessoryId', 'buttonName' and 'event' to trigger: Single press = 0, Double press = 1, Triple Press = 2, Long press = 3.",
         "items": {
           "title": "Stateless Switches",
           "type": "object",
@@ -723,6 +723,11 @@
                   },
                   "double_press": {
                     "title": "Double Press",
+                    "type": "boolean",
+                    "required": false
+                  },
+                  "triple_press": {
+                    "title": "Triple Press",
                     "type": "boolean",
                     "required": false
                   },
