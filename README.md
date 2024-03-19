@@ -1,6 +1,8 @@
 # homebridge-http-webhooks
 A http plugin with support of webhooks for [Homebridge](https://github.com/nfarina/homebridge).
 
+Use this if you want to use Shelly Button 1. This is basically the same code as nfarina's but I have added support for Shelley Button 1's triple click.
+
 The plugin gets its states from any system that is calling the url to trigger a state change.
 
 Currently supports contact, motion, occupancy, smoke sensors, switches, push buttons, lights (only on/off and brightness), temperature sensors, humidity sensors, thermostats, CO2 sensors and leak sensors.
@@ -124,7 +126,8 @@ To update a garage door opener you can update three different values:
 Stateless switches requires 3 parameters accessoryId, buttonName and the event to trigger:
 * Single press = 0
 * Double press = 1
-* Long press = 2
+* Triple press = 2
+* Long press = 3
 
 `http://yourHomebridgeServerIp:webhook_port/?accessoryId=theAccessoryIdToUpdate&buttonName=theButtonName&event=EVENT`
 
